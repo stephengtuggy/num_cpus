@@ -1,1 +1,0 @@
-echo $NUMBER_OF_PROCESSORS

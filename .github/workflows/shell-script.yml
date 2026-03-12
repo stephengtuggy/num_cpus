@@ -49,11 +49,6 @@ jobs:
         shell: sh
         if: contains(matrix.os, 'macos')
 
-      - name: Run Shell Script in cmd.exe (Windows)
-        run: .\num_cpus
-        shell: cmd
-        if: contains(matrix.os, 'windows')
-
       - name: Run Shell Script in pwsh (Windows)
         run: .\num_cpus
         shell: pwsh
