@@ -1,0 +1,64 @@
+name: linux-inside-docker.yml
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  run_shell_script:
+    name: Run Shell Script inside Docker
+    runs-on: ubuntu-24.04
+    continue-on-error: ${{ matrix.allow_failure }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - FROM:           'ubuntu:questing'
+            allow_failure:  false
+          - FROM:           'ubuntu:noble'
+            allow_failure:  false
+          - FROM:           'linuxmintd/mint22.2-amd64'
+            allow_failure:  false
+          - FROM:           'linuxmintd/mint22-amd64'
+            allow_failure:  false
+          - FROM:           'dhi.io/python:3.14-debian13-dev'
+            allow_failure:  false
+          - FROM:           'debian:bookworm'
+            allow_failure:  false
+          - FROM:           'fedora:43'
+            allow_failure:  false
+          - FROM:           'fedora:42'
+            allow_failure:  false
+          - FROM:           'fedora:41'
+            allow_failure:  false
+          - FROM:           'opensuse/leap:16.0'
+            allow_failure:  false
+          - FROM:           'opensuse/leap:15.6'
+            allow_failure:  false
+          - FROM:           'rockylinux/rockylinux:10.1'
+            allow_failure:  false
+          - FROM:           'rockylinux/rockylinux:10.0'
+            allow_failure:  false
+          - FROM:           'rockylinux/rockylinux:9.7'
+            allow_failure:  false
+          - FROM:           'manjarolinux/base'
+            allow_failure:  true
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 2
+          submodules: false
+
+      - name: Run CI
+        env:
+          FROM:       ${{ matrix.FROM }}
+        run: ./cibuild
+        shell: bash

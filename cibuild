@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -e
+
+DOCKER_IMAGE_NAME="local-image:$(echo "$FROM" | sed 's/:/_/' | sed 's/\//_/')"
+DOCKER_CONTAINER_NAME="local-container_$(echo "$FROM" | sed 's/:/_/' | sed 's/\//_/')"
+docker build --build-arg from="$FROM" -t "$DOCKER_IMAGE_NAME" .
+docker run --rm --name "$DOCKER_CONTAINER_NAME" "$DOCKER_IMAGE_NAME"
+
+echo "cibuild Done!"
