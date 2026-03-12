@@ -16,30 +16,40 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os:
-          - windows-2022
-          - windows-2025
-          - macos-14
-          - macos-15
-          - macos-15-intel
-          - ubuntu-22.04
-          - ubuntu-24.04
+        include:
+          - os: windows-2022
+            shell: cmd
+          - os: windows-2022
+            shell: pwsh
+          - os: windows-2025
+            shell: cmd
+          - os: windows-2025
+            shell: pwsh
+          - os: macos-14
+            shell: sh
+          - os: macos-14
+            shell: bash
+          - os: macos-15
+            shell: sh
+          - os: macos-15
+            shell: bash
+          - os: macos-15-intel
+            shell: sh
+          - os: macos-15-intel
+            shell: bash
+          - os: ubuntu-22.04
+            shell: sh
+          - os: ubuntu-22.04
+            shell: bash
+          - os: ubuntu-24.04
+            shell: sh
+          - os: ubuntu-24.04
+            shell: bash
 
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: Run Shell Script in Bash (Ubuntu)
+      - name: Run Shell Script
         run: ./num_cpus
-        shell: bash
-        if: contains(matrix.os, 'ubuntu')
-
-      - name: Run Shell Script in Bash (macOS)
-        run: ./num_cpus
-        shell: bash
-        if: contains(matrix.os, 'macos')
-
-      - name: Run Shell Script in cmd.exe
-        run: num_cpus
-        shell: cmd
-        if: contains(matrix.os, 'windows')
+        shell: ${{ matrix.shell }}

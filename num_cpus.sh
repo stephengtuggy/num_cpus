@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+grep -c 'cpu[0-9]' /proc/stat || getconf _NPROCESSORS_ONLN || getconf NPROCESSORS_ONLN
