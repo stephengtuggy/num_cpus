@@ -47,6 +47,8 @@ jobs:
             allow_failure:  false
           - FROM:           'rockylinux/rockylinux:9.7'
             allow_failure:  false
+          - FROM:           'archlinux:latest'
+            allow_failure:  false
           - FROM:           'manjarolinux/base'
             allow_failure:  true
 
