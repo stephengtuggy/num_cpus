@@ -1,1 +1,1 @@
-grep -c 'cpu[0-9]' /proc/stat || getconf _NPROCESSORS_ONLN || getconf NPROCESSORS_ONLN || echo "$NUMBER_OF_PROCESSORS"
+grep -c 'cpu[0-9]' /proc/stat || getconf _NPROCESSORS_ONLN || getconf NPROCESSORS_ONLN || echo "$env:NUMBER_OF_PROCESSORS" || echo "$NUMBER_OF_PROCESSORS"
