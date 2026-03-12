@@ -40,6 +40,6 @@ jobs:
         if: contains(matrix.os, 'macos')
 
       - name: Run Shell Script in cmd.exe
-        run: ./num_cpus
+        run: num_cpus
         shell: cmd
         if: contains(matrix.os, 'windows')
