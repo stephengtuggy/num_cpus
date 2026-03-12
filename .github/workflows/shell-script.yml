@@ -29,5 +29,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: Run Shell Script
+      - name: Run Shell Script in Bash (Ubuntu)
         run: ./num_cpus
+        shell: bash
+        if: contains(matrix.os, 'ubuntu')
+
+      - name: Run Shell Script in Bash (macOS)
+        run: ./num_cpus
+        shell: bash
+        if: contains(matrix.os, 'macos')
+
+      - name: Run Shell Script in cmd.exe
+        run: ./num_cpus
+        shell: cmd
+        if: contains(matrix.os, 'windows')
